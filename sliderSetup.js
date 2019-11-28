@@ -61,7 +61,7 @@
 			$items = [],
 			$links = [],
 			$thumbnail_files = ["\"img/thumbnail_xv6.png\"", "\"img/thumbnail_pgctrl.png\"", "\"img/thumbnail_xkVISOR.png\"", 
-								"\"img/thumbnail_videoStabilizer.png\"", "\"img/thumbnail_citrus.png\"", "\"img/thumbnail_hololens.png\""],
+								"\"img/thumbnail_videoStabilizer.png\"", "\"img/thumbnail_hololens.png\"", "\"img/thumbnail_citrus.png\""],
 			$thumbs = [],
 
 			$title = $listbox.find('h5'),
