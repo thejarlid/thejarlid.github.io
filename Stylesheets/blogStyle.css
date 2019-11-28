@@ -1,0 +1,30 @@
+body{
+	height: auto;
+}
+
+.content{
+}
+
+.footer{
+	position: relative;
+	width: 100%;
+	display: block;
+}
+
+.column-left{
+	float: left;
+	display: inline-block;
+	width: 50%;
+	margin: 0px;
+	text-align: center;
+	height: 600px;
+}
+
+.column-right{
+	float: right;
+	display: inline-block;
+	width: 50%;
+	margin: 0px;
+	text-align: center;
+	height: 600px;
+}
