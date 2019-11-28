@@ -60,6 +60,8 @@
 
 			$items = [],
 			$links = [],
+			$thumbnail_files = ["\"img/thumbnail_xv6.png\"", "\"img/thumbnail_pgctrl.png\"", "\"img/thumbnail_xkVISOR.png\"", 
+								"\"img/thumbnail_videoStabilizer.png\"", "\"img/thumbnail_citrus.png\"", "\"img/thumbnail_hololens.png\""],
 			$thumbs = [],
 
 			$title = $listbox.find('h5'),
@@ -100,7 +102,7 @@
 				color: $items[i].attr('data-color')
 			};
 
-			$thumbs[i] = $('<span class="thumb"><img src="img/thumbnail.png" alt=""></span>')
+			$thumbs[i] = $('<span class="thumb"><img src=' + $thumbnail_files[i] + 'alt=""></span>')
 				.insertBefore($links[i][0].children[0]).children();
 
 		});
