@@ -68,7 +68,7 @@ h1{
 }
 
 #list ul{
-	position: relative; 
+	position: relative;
 	height: 100%;
 	z-index: 2;
 	cursor: -webkit-grab;
@@ -193,9 +193,5 @@ h1{
 
 .hoverable #list li a:hover:after{
 	-webkit-transition-delay:0.125s;
-	transition-delay: 0.125s; 
+	transition-delay: 0.125s;
 }
-
-
-
-
