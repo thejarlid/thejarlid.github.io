@@ -1,5 +1,8 @@
+/*
+  Navigation bar
+*/
 .nav{
-  font-family: 'Open Sans';
+  font-family: 'Open Sans', "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
   position: absolute;
   top: 1%;
   right: 2%;
@@ -8,9 +11,9 @@
   height: 55px;
 }
 
-li{
+.nav li, .footer li{
   list-style-type: none;
-  list-style-position: outside;
+  list-style-position: inside;
   display: inline-block;
 }
 
@@ -32,27 +35,29 @@ li{
   color: #606060;
 }
 
-a:hover{
+.nav a:hover{
   color: #77c4d3;
   border-color: #77c4d3;
 }
 
-a.current:hover{
+.nav a.current:hover{
   color: #77c4d3;
   border-bottom: 2px solid #77c4d3;
 }
 
-a.current{
+.nav a.current{
   border-bottom: 2px solid #77c4d3;
 }
 
+
+/*
+  Footer
+*/
 .footer{
   position: absolute;
   width: 100%;
   bottom: 0;
   right: 0;
-  display: block;
-  text-align: center;
 }
 
 .footerWrapper{
@@ -70,4 +75,26 @@ a.current{
 #socialNetworks{
   height: 30px;
   padding: 0;
+}
+
+
+/*
+  Mobile screen adjustment
+*/
+@media screen and (max-width: 600px) {
+  .nav  {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1em;
+    text-align: center;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+
+  .nav ul {
+    padding: 0;
+  }
 }
