@@ -1,3 +1,6 @@
+/*
+Special styling for the portfolio page overriding styles from main.css and nav+footer.css
+*/
 .nav{
 	position: fixed;
 }
@@ -14,6 +17,9 @@
 	overflow: hidden;
 }
 
+/*
+Styles for the project scroll list
+*/
 #list{
 	position: absolute;
 	left: 0;
