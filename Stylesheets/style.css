@@ -17,12 +17,6 @@ body{
 	background-color: #fff;
 }
 
-h1{
-	margin: 0;
-	padding: 0;
-	display: block;
-}
-
 .content{
 	position: relative;
 	width: 60%;
