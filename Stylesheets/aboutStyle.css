@@ -54,21 +54,3 @@
 	top: 50%;
 	transform: translate(0, -50%);
 }
-
-.text p{
-  color: rgb(81, 81, 81);
-  display: block;
-  font-family: 'Open Sans';
-  font-size: 14px;
-  font-style: normal;
-  font-weight: normal;
-  letter-spacing: 1px;
-  line-height: 25px;
-  margin: 7px 0;
-  text-align: left;
-  text-decoration: none;
-}
-
-.text a {
-	color: #77c4d3;
-}
