@@ -125,38 +125,38 @@
             \end{vmatrix}
         $$
         <p>\(Hx = x’\) s.t \(x\) is a homogenous coordinate vector \(\begin{bmatrix}x \\ y \\ 1\end{bmatrix}\)</p>
-        <p>When you take H and multiply it by a homogenous co-ordinate x we would hope to obtain x’ the matching point in the next frame. In this case we know x and x’ and we solve for H. There are 6 unknowns in an affine homography so we need at least
+        <p>When you take \(H\) and multiply it by a homogenous co-ordinate \(x\) we would hope to obtain \(x’\) the matching point in the next frame. In this case we know \(x\) and \(x’\) and we solve for \(H\). There are 6 unknowns in an affine homography so we need at least
           3 matching points in order to solve this system. In addition we also have to take care of the outliers which we do using a technique called RANSAC (RAndom SAmple Consensus). The pseudo code is:</p>
-        <pre><code>for n iterations
-        1. randomly pick three feature point matches
-        2. solve system to compute H
-        3. compute the number of inliers for H by projecting matches according to H and seeing whether the difference falls within some epsilon
-        4. keep H that has the most inliers
-    Re-compute H using all of the inliers with the least squares estimate method
-    return H
-    </code></pre>
-        <p>Luckily all this work is done in OpenCV with <code>cv.findHomography()</code> and <code>cv.estimateAffine2D</code> to find the full or affine homography respectively. Performing this on each frame pair’s feature matches we then get a list of
+<pre><code>for n iterations
+  1. randomly pick three feature point matches
+  2. solve system to compute H
+  3. compute the number of inliers for H by projecting matches according to H and seeing whether the difference falls within some epsilon
+  4. keep H that has the most inliers
+
+Re-compute H using all of the inliers with the least squares estimate method
+return H</code></pre>
+        <p>Luckily all this work is done in OpenCV with <code class="inline">cv.findHomography()</code> and <code class="inline">cv.estimateAffine2D()</code> to find the full or affine homography respectively. Performing this on each frame pair’s feature matches we then get a list of
           n-1 homographies description the motion through each frame. </p>
-        <p>To plot the trajectory I start with the point (1, 1, 1), this could be any start point, and then I chain matrix multiplications of the homographies. ex: H_3( H_2(H_1(x))) my results for the first 1000 frames of my test video is depicted in
+        <p>To plot the trajectory I start with the point \((1, 1, 1)\), this could be any start point, and then I chain matrix multiplications of the homographies. ex: \(H_{n-1} * ... * H_3 * H_2 * H_1(x)\) my results for the first 1000 frames of my test video is depicted in
           the following graph. </p>
-        <p><img src="Untitled.html_files/images/s_E9EF8F33FCFCF502F05C4A7A1663FF7EBCD079E2DD964294142851EA0533EAEB_1591340632938_motion_1000frames.png" alt=""></p>
+        <p><img src="img/VideoStabilization/motion_1000frames.png" alt=""></p>
         <h3 id="calculate-smooth-path">2. Calculate Smooth Path</h3>
         <p>In honesty everything to this point is considered setup for what the core of the paper discusses which is given this existing path how do we determine the smooth path? </p>
         <p>We know we want to replace the motion with one of three types, constant, linear, and parabolic and these can be quantified mathematically as regions of the smooth path P(t) that have one of the following properties:</p>
         <ol>
-          <li>D(P) = 0 — the first derivative of the path is 0 meaning the original motion of P was a horizontal line and 0 slope (i.e. P(t) = 4)</li>
-          <li>D^2(P) = 0 — the second derivative of the path is 0 meaning the original motion was some line with a non-zero slope (i.e. P(t) = 4x + 5)</li>
-          <li>D^3(P) = 0 — the third derivative of the path is 0 meaning the original motion was parabolic-like (i.e. P(t) = 4x^2)</li>
+          <li>\(D(P) = 0\) — the first derivative of the path is 0 meaning the original motion of P was a horizontal line and 0 slope (i.e. \(P(t) = 4\))</li>
+          <li>\(D^2(P) = 0\) — the second derivative of the path is 0 meaning the original motion was some line with a non-zero slope (i.e. \(P(t) = 4x + 5\))</li>
+          <li>\(D^3(P) = 0\) — the third derivative of the path is 0 meaning the original motion was parabolic-like (i.e. \(P(t) = 4x^2\))</li>
         </ol>
         <p>The paper forms this as an L1 minimization problem and the reason for L1 like almost every time L1 is used is because we want to take advantage of the solution space being sparse meaning the coefficients are highly significant making them
-          either very close to 0 or very far from 0. In this application we can force the derivatives to be exactly 0. For background on L1 norms and minimization see (<a href="https://www.cs.colorado.edu/~srirams/courses/csci5654-fall13/regression-sli.pdf">https://www.cs.colorado.edu/~srirams/courses/csci5654-fall13/regression-sli.pdf</a>
-          and <a href="https://medium.com/mlreview/l1-norm-regularization-and-sparsity-explained-for-dummies-5b0e4be3938a">https://medium.com/mlreview/l1-norm-regularization-and-sparsity-explained-for-dummies-5b0e4be3938a</a>)</p>
+          either very close to 0 or very far from 0. In this application we can force the derivatives to be exactly 0. For background on L1 norms and minimization see (<a href="https://www.cs.colorado.edu/~srirams/courses/csci5654-fall13/regression-sli.pdf">Colorado's Linear Programming slides</a>
+          and <a href="https://medium.com/mlreview/l1-norm-regularization-and-sparsity-explained-for-dummies-5b0e4be3938a">this medium post on L1 norm regularization and sparsity</a>)</p>
         <p>In addition to the above objective we have additional constraints: </p>
         <ol>
           <li>Inclusion Constraint - For smoothing the idea is to have a crop window that follows the smooth path within the original frames rather than warp the full frames because this leads to strange frame shapes, artifacts, and black borders around
             the frame so to keep a consistently sized window we are essentially moving a crop window within the frames and this contraint ensures that the warp we apply to the cropped area is within the overall frame bounds. Below is a useful visual
             taken from the paper:
-            <img src="Untitled.html_files/images/s_E9EF8F33FCFCF502F05C4A7A1663FF7EBCD079E2DD964294142851EA0533EAEB_1591425723412_Screen+Shot+2020-06-05+at+11.41.55+PM.png" alt=""></li>
+            <img class="medium" src="img/VideoStabilization/crop.png" alt=""></li>
         </ol>
         <ol>
           <li>Proximity Constraint - we want to preserve the movie in the way it was filmed the paper gives a great example that if the original camera was zooming our smooth path should also zoom in correctly instead of deciding that some warp should
@@ -165,128 +165,142 @@
             focus on the salient points.</li>
         </ol>
         <p>With the objective and the constraints laid out it lends itself nicely to formulate a solution via Linear Programming. The objective is: </p>
-        <p>O(P ) = w1|D(P )| + w2|D^2(P )| + w3|D^3(P )|</p>
-        <p>where w1, w2, and w3 are weights for how much we wish to favour/incorporate segments of that type. In my implementation I choose 10, 1, 100 respectively going off the results in Figure 8 of the research paper. In the results section below I
+        $$
+          O(P) = w_1|D(P)| + w_2|D^2(P)| + w_3|D^3(P)|
+        $$
+        <p>where \(w_1\), \(w_2\), and \(w_3\) are weights for how much we wish to favour/incorporate segments of that type. In my implementation I choose 10, 1, 100 respectively going off the results in Figure 8 of the research paper. In the results section below I
           also have graphs showing what I obtained when varying the weights. </p>
-        <p>To minimize all of the L1 norms we use forward differencing the derivation of which for all three derivatives is very straight forward and laid out on page 3 of the paper. I want to instead focus on the implementation and more tangible side
+        <p>To minimize all of the L1 norms we use forward differencing the derivation of which for all three derivatives is quite easy to follow and laid out on page 3 of the paper. I want to instead focus on the implementation and more tangible side
           for those that may understand better by seeing code. To solve this linear programming problem in python I used a convex optimization package called cvxpy with which I experienced limitations I will go into detail with when discussing results.
           The full source code can be found here: <a href="https://github.com/thejarlid/VideoStabilizationPy">https://github.com/thejarlid/VideoStabilizationPy</a></p>
-        <pre><code>  weight_constant = 10          # weight towards constant 0 velocity path
-      weight_linear = 1             # weight towards segments with a non-zero velocity
-      weight_parabolic =  100       # weight towards segments with parabolic motion
-      affine_weights = np.transpose([1, 1, 100, 100, 100, 100])     # weighting of each component in the path vector we want to weight the affine portion more than the translation components
-      smooth_path = cp.Variable((n, 6))     # matrix of the n smooth paths vectors that we are optimising to find
-      slack_var_1 = cp.Variable((n, 6))     # Slack variable for constraining residual 1
-      slack_var_2 = cp.Variable((n, 6))     # Slack variable for constraining residual 2
-      slack_var_3 = cp.Variable((n, 6))     # Slack variable for constraining residual 3
-      objective = cp.Minimize(cp.sum((weight_constant * (slack_var_1 @ affine_weights)) +
-                                      (weight_linear * (slack_var_2 @ affine_weights)) +
-                                      (weight_parabolic * (slack_var_3 @ affine_weights)), axis=0))
-    </code></pre>
-        <p>The above lines simply create the variables I will need. smooth_path is a matrix of nx6 n is the number of timesteps each row is a vector of 6 variables each one corresponding to a variable in the affine transform. Each row in smooth_path is
-          of the form (tx, ty, a, b, c, d). this is what we want to optimize. The slack variables are used to constrain the path and the objective is defined to minimize c^T @ e. e being the slack variable. </p>
+<pre><code>  weight_constant = 10          # weight towards constant 0 velocity path
+  weight_linear = 1             # weight towards segments with a non-zero velocity
+  weight_parabolic =  100       # weight towards segments with parabolic motion
+  affine_weights = np.transpose([1, 1, 100, 100, 100, 100])     # weighting of each component in the path vector we want to weight the affine portion more than the translation components
+  smooth_path = cp.Variable((n, 6))     # matrix of the n smooth paths vectors that we are optimising to find
+  slack_var_1 = cp.Variable((n, 6))     # Slack variable for constraining residual 1
+  slack_var_2 = cp.Variable((n, 6))     # Slack variable for constraining residual 2
+  slack_var_3 = cp.Variable((n, 6))     # Slack variable for constraining residual 3
+  objective = cp.Minimize(cp.sum((weight_constant * (slack_var_1 @ affine_weights)) +
+                                 (weight_linear * (slack_var_2 @ affine_weights)) +
+                                 (weight_parabolic * (slack_var_3 @ affine_weights)), axis=0))
+</code></pre>
+        <p>The above lines simply create the variables I will need. smooth_path is an n x 6 matrix where n is the number of timesteps each row is a vector of 6 variables each one corresponding to a variable in the affine transform. Each row in smooth_path is
+          of the form \((tx, ty, a, b, c, d)\). this is what we want to optimize. We want to find the correct value for each vector row of smooth_path. The slack variables are used to constrain the path and the objective is defined to minimize \(c^Te\). e being the slack variable. </p>
         <p>I next add the proximity constraints:</p>
-        <pre><code>  # proximity constriants
-      # U is used to extract components from the vector smooth_path. We want to constrain
-      # the values of our path vector to the following:
-      # 0.9 &lt;= a, d &lt;= 1.1
-      # -0.1 &lt;= b, c &lt;= 0.1
-      # -0.1 &lt;= a - d &lt;= 0.1
-      # -0.051 &lt;= b + c &lt;= 0.05
-      U = np.array([0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0,
-                    1, 0, 0, 0, 1, 0,
-                    0, 1, 0, 0, 0, 1,
-                    0, 0, 1, 0, 0, 1,
-                    0, 0, 0, 1, -1, 0]).reshape(6, 6)
-      lb = np.array([0.9, -0.1, -0.1, 0.9, -0.1, -0.05])
-      ub = np.array([1.1, 0.1, 0.1, 1.1, 0.1, 0.05])
-      proximity = smooth_path @ U
-      for i in range(n):
-        constraints.append(proximity[i, :] &gt;= lb)
-        constraints.append(proximity[i, :] &lt;= ub)
-    </code></pre>
-        <p>To understand what is going on above its helpful to consider a single vector of smooth_path. We want the following constraints on a, b, c, and d in our vector; 0.9 ≤ a , d ≤ 1.1, −0.1 ≤ b, c ≤ 0.1, −0.05 ≤ b +c ≤ 0.05, and −0.1 ≤ a − d ≤ 0.1.
-          When the vector p(t) of the form (tx, ty, a, b, c, d) is multiplied by U the first column in U extracts a, the second extracts b, the third extracts, c, the fourth extracts d, the fifth column gives us a - d, and the sixth column gives us b +
-          c so our resulting vector is of the form (a, b, c, d, a - d, b + c) we then compare elementwise to lb and ub. Looking at the first element this comparison/constraint performs 0.9 ≤ a ≤ 1.1. The idea translates to all elements in the proximity
+<pre><code>  # proximity constriants
+  # U is used to extract components from the vector smooth_path. We want to constrain
+  # the values of our path vector to the following:
+  # 0.9 &lt;= a, d &lt;= 1.1
+  # -0.1 &lt;= b, c &lt;= 0.1
+  # -0.1 &lt;= a - d &lt;= 0.1
+  # -0.05 &lt;= b + c &lt;= 0.05
+  U = np.array([0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                1, 0, 0, 0, 1, 0,
+                0, 1, 0, 0, 0, 1,
+                0, 0, 1, 0, 0, 1,
+                0, 0, 0, 1, -1, 0]).reshape(6, 6)
+  lb = np.array([0.9, -0.1, -0.1, 0.9, -0.1, -0.05])
+  ub = np.array([1.1, 0.1, 0.1, 1.1, 0.1, 0.05])
+  proximity = smooth_path @ U
+  for i in range(n):
+    constraints.append(proximity[i, :] &gt;= lb)
+    constraints.append(proximity[i, :] &lt;= ub)
+</code></pre>
+        <p>To understand what is going on above its helpful to consider a single vector of smooth_path. We want the following constraints on \(a\), \(b\), \(c\), and \(d\) in our vector; $$ 0.9 ≤ a , d ≤ 1.1 $$ $$ −0.1 ≤ b, c ≤ 0.1 $$ $$ −0.05 ≤ b +c ≤ 0.05 $$ $$ −0.1 ≤ a − d ≤ 0.1 $$
+          When the vector \(p(t)\) of the form \((tx, ty, a, b, c, d)\) is multiplied by U the first column in U extracts a, the second extracts b, the third extracts, c, the fourth extracts d, the fifth column gives us a - d, and the sixth column gives us b +
+          c so our resulting vector is of the form \((a, b, c, d, a - d, b + c)\) we then compare elementwise to lb and ub. Looking at the first element this comparison/constraint performs \(0.9 ≤ a ≤ 1.1\). This idea translates to all elements in the proximity
           vector, lb, and ub. </p>
-        <p>After the proximity constraints I add the inclusion constraints to ensure the smooth transform will keep the crop window within the frame bounds. Since we are working with a fixed crop ratio we take new corner points at (1-crop_ratio) within
-          from the real corner points, project them according to the smooth_path and declare that whatever the x and y of these new corners become make sure that they are at least greater than or equal to 0 and within the width and height of the frame.
+        <p>After the proximity constraints I add the inclusion constraints to ensure the smooth transform will keep the crop window within the frame bounds. Since we are working with a fixed crop ratio we take new corner points of the crop window centred in the frame
+          and project them according to the smooth_path. We then declare that whatever the projected coordinates be that they are at least greater than or equal to 0 and within the width and height of the frame.
         </p>
-        <pre><code>  # inclusion constraints for the crop corners
-      # want to make sure the corner points when projected are within the frame dimensions
-      corners = get_corner_crop_pts(frame_dimensions)
-      for corner in corners:
-        x, y = corner
-        projected_x = smooth_path @ np.transpose([1, 0, x, y, 0, 0]) # x&#39; = tx + ax + by
-        projected_y = smooth_path @ np.transpose([0, 1, 0, 0, x, y]) # y&#39; = ty + cx + dy
-        constraints.append(projected_x &gt;= 0)
-        constraints.append(projected_y &gt;= 0)
-        constraints.append(projected_x &lt;= frame_dimensions[1])
-        constraints.append(projected_y &lt;= frame_dimensions[0])
-    </code></pre>
+<pre><code>  # inclusion constraints for the crop corners
+  # want to make sure the corner points when projected are within the frame dimensions
+  corners = get_corner_crop_pts(frame_dimensions)
+  for corner in corners:
+    x, y = corner
+    projected_x = smooth_path @ np.transpose([1, 0, x, y, 0, 0]) # x&#39; = tx + ax + by
+    projected_y = smooth_path @ np.transpose([0, 1, 0, 0, x, y]) # y&#39; = ty + cx + dy
+    constraints.append(projected_x &gt;= 0)
+    constraints.append(projected_y &gt;= 0)
+    constraints.append(projected_x &lt;= frame_dimensions[1])
+    constraints.append(projected_y &lt;= frame_dimensions[0])
+</code></pre>
         <p>Finally the smoothness constraints:</p>
-        <pre><code>  # Smoothness constraints
-      constraints.append(slack_var_1 &gt;= 0)
-      constraints.append(slack_var_2 &gt;= 0)
-      constraints.append(slack_var_3 &gt;= 0)
-      for i in range(n - 3):
-        # Extract smooth path component variables into a matrix we can then use to calculate each residual
-        # Residual 1 is for the constant zero velocity path
-        # Residual 2 is for the constant non-zero velocity path
-        # Residual 3 is for the parabolic non zero acceleration path
-        B_t = np.array([smooth_path[i, 2], smooth_path[i, 4], 0,
-                        smooth_path[i, 3], smooth_path[i, 5], 0,
-                        smooth_path[i, 0], smooth_path[i, 1], 1]).reshape((3,3))
-        B_t1 = np.array([smooth_path[i+1, 2], smooth_path[i+1, 4], 0,
-                          smooth_path[i+1, 3], smooth_path[i+1, 5], 0,
-                          smooth_path[i+1, 0], smooth_path[i+1, 1], 1]).reshape((3,3))
-        B_t2 = np.array([smooth_path[i+2, 2], smooth_path[i+2, 4], 0,
-                          smooth_path[i+2, 3], smooth_path[i+2, 5], 0,
-                          smooth_path[i+2, 0], smooth_path[i+2, 1], 1]).reshape((3,3))
-        B_t3 = np.array([smooth_path[i+3, 2], smooth_path[i+3, 4], 0,
-                          smooth_path[i+3, 3], smooth_path[i+3, 5], 0,
-                          smooth_path[i+3, 0], smooth_path[i+3, 1], 1]).reshape((3,3))
-        residual_t = np.transpose(timewise_homographies[i + 1]) @ B_t1  - B_t
-        residual_t1 = np.transpose(timewise_homographies[i + 2]) @ B_t2 - B_t1
-        residual_t2 = np.transpose(timewise_homographies[i + 3]) @ B_t3 - B_t2
-        residual_t = np.array([residual_t[2, 0], residual_t[2, 1], residual_t[0, 0],
-                              residual_t[1, 0], residual_t[0, 1], residual_t[1, 1]])
-        residual_t1 = np.array([residual_t1[2, 0], residual_t1[2, 1], residual_t1[0, 0],
-                                residual_t1[1, 0], residual_t1[0, 1], residual_t1[1, 1]])
-        residual_t2 = np.array([residual_t2[2, 0], residual_t2[2, 1], residual_t2[0, 0],
-                                residual_t2[1, 0], residual_t2[0, 1], residual_t2[1, 1]])
-        # this is where the actual smoothness constraint is obtained from the residuals
-        # i.e. this is where we summarized the following:
-        #  -e_t1 &lt;= R_t(p) &lt; e_t1
-        #  -e_t2 &lt;= R_t1(p) - R_t(p) &lt; e_t2
-        #  -e_t3 &lt;= R_t2(p) - 2R_t1(p) + R_t(p) &lt; e_t3
-        # if we can vectorize the below constraints we can speed this up and most likely get better results
-        # being able to smooth over more frames
-        for j in range(6):
-          constraints.append(residual_t[j] &lt;= slack_var_1[i, j])
-          constraints.append(residual_t[j] &gt;= -slack_var_1[i, j])
-          constraints.append((residual_t1[j] - residual_t[j]) &lt;= slack_var_2[i, j])
-          constraints.append((residual_t1[j] - residual_t[j]) &gt;= -slack_var_2[i, j])
-          constraints.append((residual_t2[j] - 2*residual_t1[j] + residual_t[j]) &lt;= slack_var_3[i, j])
-          constraints.append((residual_t2[j] - 2*residual_t1[j] + residual_t[j]) &gt;= -slack_var_3[i, j])
-      for i in range(n-3, n):
-        constraints.append(smooth_path[i, 5] == smooth_path[n-1, 5])
-    </code></pre>
+<pre><code>  # Smoothness constraints
+  constraints.append(slack_var_1 &gt;= 0)
+  constraints.append(slack_var_2 &gt;= 0)
+  constraints.append(slack_var_3 &gt;= 0)
+
+  for i in range(n - 3):
+    # Extract smooth path component variables into a matrix we can then use to calculate each residual
+    # Residual 1 is for the constant zero velocity path
+    # Residual 2 is for the constant non-zero velocity path
+    # Residual 3 is for the parabolic non zero acceleration path
+    B_t = np.array([smooth_path[i, 2], smooth_path[i, 4], 0,
+                    smooth_path[i, 3], smooth_path[i, 5], 0,
+                    smooth_path[i, 0], smooth_path[i, 1], 1]).reshape((3,3))
+    B_t1 = np.array([smooth_path[i+1, 2], smooth_path[i+1, 4], 0,
+                      smooth_path[i+1, 3], smooth_path[i+1, 5], 0,
+                      smooth_path[i+1, 0], smooth_path[i+1, 1], 1]).reshape((3,3))
+    B_t2 = np.array([smooth_path[i+2, 2], smooth_path[i+2, 4], 0,
+                      smooth_path[i+2, 3], smooth_path[i+2, 5], 0,
+                      smooth_path[i+2, 0], smooth_path[i+2, 1], 1]).reshape((3,3))
+    B_t3 = np.array([smooth_path[i+3, 2], smooth_path[i+3, 4], 0,
+                      smooth_path[i+3, 3], smooth_path[i+3, 5], 0,
+                      smooth_path[i+3, 0], smooth_path[i+3, 1], 1]).reshape((3,3))
+
+    residual_t = np.transpose(timewise_homographies[i + 1]) @ B_t1  - B_t
+    residual_t1 = np.transpose(timewise_homographies[i + 2]) @ B_t2 - B_t1
+    residual_t2 = np.transpose(timewise_homographies[i + 3]) @ B_t3 - B_t2
+
+    residual_t = np.array([residual_t[2, 0], residual_t[2, 1], residual_t[0, 0],
+                          residual_t[1, 0], residual_t[0, 1], residual_t[1, 1]])
+    residual_t1 = np.array([residual_t1[2, 0], residual_t1[2, 1], residual_t1[0, 0],
+                            residual_t1[1, 0], residual_t1[0, 1], residual_t1[1, 1]])
+    residual_t2 = np.array([residual_t2[2, 0], residual_t2[2, 1], residual_t2[0, 0],
+                            residual_t2[1, 0], residual_t2[0, 1], residual_t2[1, 1]])
+
+    # this is where the actual smoothness constraint is obtained from the residuals
+    # i.e. this is where we summarized the following:
+    #  -e_t1 &lt;= R_t(p) &lt; e_t1
+    #  -e_t2 &lt;= R_t1(p) - R_t(p) &lt; e_t2
+    #  -e_t3 &lt;= R_t2(p) - 2R_t1(p) + R_t(p) &lt; e_t3
+    # if we can vectorize the below constraints we can speed this up and most likely get better results
+    # being able to smooth over more frames
+    for j in range(6):
+      constraints.append(residual_t[j] &lt;= slack_var_1[i, j])
+      constraints.append(residual_t[j] &gt;= -slack_var_1[i, j])
+      constraints.append((residual_t1[j] - residual_t[j]) &lt;= slack_var_2[i, j])
+      constraints.append((residual_t1[j] - residual_t[j]) &gt;= -slack_var_2[i, j])
+      constraints.append((residual_t2[j] - 2*residual_t1[j] + residual_t[j]) &lt;= slack_var_3[i, j])
+      constraints.append((residual_t2[j] - 2*residual_t1[j] + residual_t[j]) &gt;= -slack_var_3[i, j])
+
+  for i in range(n-3, n):
+    constraints.append(smooth_path[i, 5] == smooth_path[n-1, 5])
+</code></pre>
         <p>I tried to document the code above with comments describing what is going on and for the large part it correlates directly to the residual derivation in the paper. To reiterate the major chunks we first create B_t, B_t1, B_t2, and B_t3 for
           the current time step by extracting the smooth_path vector at time t into a matrix of the form </p>
-        <blockquote>
-          <p>a c 0 |
-            b d 0 | ← this is just an affine homography transposed
-            tx ty 1 | </p>
-        </blockquote>
-        <p>and we then use these to form our three residuals. We then add the appropriate constraints on the residuals according to the paper and these comments:</p>
-        <pre><code>      -e_t1 &lt;= R_t(p) &lt; e_t1
-          -e_t2 &lt;= R_t1(p) - R_t(p) &lt; e_t2
-          -e_t3 &lt;= R_t2(p) - 2R_t1(p) + R_t(p) &lt; e_t3
-    </code></pre>
-        <p>The issue is that we do this element wise manually instead of in vectorized format leading to some issues. I want to say this is because of my inexperience with the package rather than an inherent limitation on the python language and cvxpy
-          in general. If anyone does know how I can vectorize or improve this smoothness constraint I would love to know. I spent a long time trying to vectorize and use slices. </p>
+        $$
+            B_t = \begin{vmatrix}
+            a & c & 0 \\
+            b & d & 0 \\
+            tx & ty & 1 \\
+            \end{vmatrix}
+        $$
+        <p>This is just an affine homography transposed and we then use these to form our three residuals. We then add the appropriate constraints on the residuals according to the paper and these comments:</p>
+        $$
+          -e_{t1} &lt;= R_t(p) &lt; e_{t1}
+        $$
+        $$
+          -e_{t2} &lt;= R_{t1}(p) - R_t(p) &lt; e_{t2}
+        $$
+        $$
+          -e_{t3} &lt;= R_{t2}(p) - 2R_{t1}(p) + R_t(p) &lt; e_{t3}
+        $$
+        <p>The issue is that we do this element wise instead of in vectorized format leading to some efficiency issues. I want to say this is because of my inexperience with the cvxpy package rather than an inherent limitation on the python language and cvxpy
+          in general. If anyone does know how I can vectorize or improve this smoothness constraint I would love to know. I spent a long time trying to vectorize and use slices, but hit compilation errors. </p>
         <p>In code the final steps is to just let the convex optimization package solve this for us and upon completion the smooth_path variable will be populated. A final bit of post processing is to take each of the n smooth_path vectors and turn them
           into n affine homographies and return them in a list. </p>
         <h3 id="produce-new-%E2%80%98smooth%E2%80%99-frames">3. Produce new ‘smooth’ frames</h3>
@@ -297,17 +311,18 @@
         <p>Given that my goal was to revisit the problem to better understand the paper that in itself is a result to me. Along the way I got to revisit my passion for CV, dive deeper into the mathematics behind homographies, and expose myself to field
           of linear and convex optimizations and linear programming. </p>
         <p>This time around the results I produced were more stable than before here is a gif of a short segment the left being the original and the right being my produced frames.</p>
-        <p><img src="Untitled.html_files/images/s_E9EF8F33FCFCF502F05C4A7A1663FF7EBCD079E2DD964294142851EA0533EAEB_1591429800559_ezgif-6-95b7732f1bb5.gif" alt=""></p>
-        <p>Its clear to see that the cropped one has far less motion, the orientation is off and this is because I wasn’t able to smooth over the entire video I had to work with small segments of ~150-300 frames because when the convex optimization
-          package would compile my constraints it would take upwards of hours as more and more frames were added and occasionally memory limits would get hit. I have a feeling if I were able to figure out vectorized formats for the smoothing constraint
-          compilation of the constraints would be faster. In addition, if I could smooth over thousands of frames the orientation would be fixed as it would pick the best that would blend with minimal motions for later frames. </p>
-        <p>I also plot the x and y motion before and after smoothing to view the results for various segments that took advantage of different motion models. Below are the results with green representing the smoothed motion. </p>
-        <p><img src="Untitled.html_files/images/s_E9EF8F33FCFCF502F05C4A7A1663FF7EBCD079E2DD964294142851EA0533EAEB_1591430248432_motion_0_150.png" alt=""></p>
-        <p><img src="Untitled.html_files/images/s_E9EF8F33FCFCF502F05C4A7A1663FF7EBCD079E2DD964294142851EA0533EAEB_1591430248457_motion_300_600.png" alt=""></p>
-        <p>Finally I also wanted to test changes in weight and see what would happen if I only wanted parabolic motion and the resulting graph comes from w1 = w2 = 0, w3 = 100. </p>
-        <p><img src="Untitled.html_files/images/s_E9EF8F33FCFCF502F05C4A7A1663FF7EBCD079E2DD964294142851EA0533EAEB_1591430248479_motion_parabolic.png" alt=""></p>
-        <p>All in all I think the methods in this paper are really really interesting, the thing about computer vision is that you get extremely tangible results. Below are just a collection of different video segments that were smoothed. </p>
-
+        <p><img src="img/VideoStabilization/results.gif" alt=""></p>
+        <p>Its clear to see that the cropped one has far less motion, the angle of the frame is slightly off and this is becasue I was smoothing over 150-300 frames at a time rather than the full video. If I were able to smooth over the whole video
+          the constraints would know about motion later in the video and so the orientation it would pick would be one in which the rotation is correct. The reason I had to work with small segments of frames was because of the vectorization or lack thereof
+          when adding the residual constraints. This has significant impact on the convex optimization package during compile time since as frames start to increase the number of variables in our linear programming problem increase drastically. When
+          smoothing ~300 frames on my machine the process took 30+ minutes so as more frames added I hit time and memory limits. I have a feeling if I were able to figure out vectorized formats for the smoothing constraint
+          compilation of the problem would be faster. However, even with just 300 frames the results are impressive.</p>
+        <p>I also plot the x and y motion before and after smoothing to view the results for various segments that took advantage of different motion models. Below are the results with green representing the smoothed motion and red being the original trajectory</p>
+        <p><img src="img/VideoStabilization/0_150.png" alt=""></p>
+        <p><img src="img/VideoStabilization/300_600.png" alt=""></p>
+        <p>Finally I also wanted to test changes in weight and see what would happen if I only wanted parabolic motion and the resulting graph comes from w1 = w2 = 0, w3 = 100. This is on the same path as the first 150 frames above where we obtained strictly constant paths.</p>
+        <p><img src="img/VideoStabilization/strictly_parabolic.png" alt=""></p>
+        <p>All in all I think the methods in this paper are really really interesting, the thing about computer vision is that you get extremely tangible results. I'm quite happy to put to rest that part of my mind bringing me back to solve this problem.</p>
       </article>
     </div>
 
