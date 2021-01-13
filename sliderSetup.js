@@ -60,7 +60,7 @@
 
 			$items = [],
 			$links = [],
-			$thumbnail_files = ["\"img/thumbnail_xv6.png\"", "\"img/thumbnail_pgctrl.png\"", "\"img/thumbnail_xkVISOR.png\"",
+			$thumbnail_files = ["\"img/thumbnail_meraki.png\"", "\"img/thumbnail_xv6.png\"", "\"img/thumbnail_pgctrl.png\"", "\"img/thumbnail_xkVISOR.png\"",
 								"\"img/thumbnail_imglib.png\"", "\"img/thumbnail_videoStabilizer.png\"", "\"img/thumbnail_hololens.png\"",
                 "\"img/thumbnail_citrus.png\""],
 			$thumbs = [],
