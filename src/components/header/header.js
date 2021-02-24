@@ -59,6 +59,28 @@ const NavLink = styled(Link)`
   }
 `
 
+const StaticFileLink = styled.a`
+  font-size: 0.7em;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 2px;
+  line-height: 20.899999618530273px;
+  list-style-type: disc;
+  padding-bottom: 0px;
+  padding-left: 11px;
+  padding-right: 11px;
+  padding-top: 15px;
+  text-align: left;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #606060;
+
+  &:hover{
+    color: #77c4d3;
+    border-color: #77c4d3;
+  }
+`
+
 export default function Header() {
   return (
     <div>
@@ -69,16 +91,16 @@ export default function Header() {
               <NavLink to="/">Home</NavLink>
             </NavigationListElement>
             <NavigationListElement>
-              <NavLink to="/">Resume</NavLink>
+              <StaticFileLink href={'/dilraj_devgun_resume.pdf'}>Resume</StaticFileLink>
             </NavigationListElement>
             <NavigationListElement>
-              <NavLink to="/">Work</NavLink>
+              <NavLink to="/work">Work</NavLink>
             </NavigationListElement>
             <NavigationListElement>
-              <NavLink to="/">Blog</NavLink>
+              <NavLink to="/blog">Blog</NavLink>
             </NavigationListElement>
             <NavigationListElement>
-              <NavLink to="/">About</NavLink>
+              <NavLink to="/about">About</NavLink>
             </NavigationListElement>
           </Navigation>
         </Navbar>

@@ -60,9 +60,9 @@
 
 			$items = [],
 			$links = [],
-			$thumbnail_files = ["\"./scripts/thumbnails/thumbnail_meraki.png\"", "\"./scripts/thumbnails/thumbnail_xv6.png\"", "\"./scripts/thumbnails/thumbnail_pgctrl.png\"", 
-								"\"./scripts/thumbnails/thumbnail_xkVISOR.png\"", "\"./scripts/thumbnails/thumbnail_imglib.png\"", "\"./scripts/thumbnails/thumbnail_videoStabilizer.png\"", 
-								"\"./scripts/thumbnails/thumbnail_hololens.png\"", "\"./scripts/thumbnails/thumbnail_citrus.png\""],
+			$thumbnail_files = ["\"img/thumbnail_meraki.png\"", "\"img/thumbnail_xv6.png\"", "\"img/thumbnail_pgctrl.png\"", "\"img/thumbnail_xkVISOR.png\"",
+								"\"img/thumbnail_imglib.png\"", "\"img/thumbnail_videoStabilizer.png\"", "\"img/thumbnail_hololens.png\"",
+                "\"img/thumbnail_citrus.png\""],
 			$thumbs = [],
 
 			$title = $listbox.find('h5'),
@@ -84,6 +84,8 @@
 			triggered = false,
 
 			numitems;
+
+		console.log("hello");
 
 
 		itemwidth = itemwidth+itempadding*2;

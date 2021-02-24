@@ -6,7 +6,7 @@ import styled from "styled-components"
 
 const HelloMessage = styled.h1`
   position: relative;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 3em;
   display: inline-block;
   width: 100%;
@@ -85,16 +85,17 @@ const IndexPage = () => {
   return (
     <Layout>
       <HomeContent>
-        <HelloMessage>Hi, I'm Dilraj Devgun.</HelloMessage>
+        <HelloMessage>Hi, I'm Dilraj.</HelloMessage>
         <Prompt>
           <Typed strings={[
               "In a nutshell I build cool things.", 
-              "My passion in CS are in low level systems and machine learning.",
+              "My passion in CS are in low level systems and medical applications of ML, CV, and AI.",
               "I work on the HoloLens team @ Microsoft.", 
-              "I develop iOS apps.", 
+              "I develop iOS apps.",
               "I studied Computer Science @ the University of Washington.",
+              "I'm a first generation college graduate",
               "I love soccer, tennis, and boxing.", 
-              "I grew up in England and currently live in Washington.",
+              "I grew up in England and currently live in Seattle.",
               "I can solve the rubix cube in under 2 minutes."]}
               typeSpeed={30}
               backSpeed={20}
