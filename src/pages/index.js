@@ -27,7 +27,6 @@ const HelloMessage = styled.h1`
     display: inline-block;
     width: 100%;
   }
-  
 `
 
 const Prompt = styled.h2`
@@ -90,11 +89,13 @@ const IndexPage = () => {
           <Typed strings={[
               "In a nutshell I build cool things.", 
               "My passion in CS are in low level systems and medical applications of ML, CV, and AI.",
-              "I work on the HoloLens team @ Microsoft.", 
+              "I'm a software engineer on the HoloLens systems, sensors, and, firmware team @ Microsoft.", 
               "I develop iOS apps.",
               "I studied Computer Science @ the University of Washington.",
               "I'm a first generation college graduate",
-              "I love soccer, tennis, and boxing.", 
+              "I love soccer, tennis, and boxing.",
+              "My favourite book is Notes From the Underground",
+              "My favourite albums are Channel Orange, Not Waving But Drowning, and My Beautiful Dark Twisted Fantasy",
               "I grew up in England and currently live in Seattle.",
               "I can solve the rubix cube in under 2 minutes."]}
               typeSpeed={30}
