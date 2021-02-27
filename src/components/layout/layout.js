@@ -89,7 +89,7 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 200;
     letter-spacing: 1px;
-    line-height: 25px;
+    line-height: 22px;
     text-align: left;
   }
   

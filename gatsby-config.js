@@ -46,5 +46,7 @@ module.exports = {
       __key: "markdown",
     },
     `gatsby-transformer-yaml`,
+    `gatsby-transformer-remark`,
+    "rehype-react",
   ],
 };
