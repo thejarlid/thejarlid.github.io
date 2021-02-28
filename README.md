@@ -1,24 +1,17 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+    
+# thejarlid.github.io
 
-## 🚀 Quick start
+This is the source for my personal site and blog deployed on github pages. This site was built using React + GatsbyJS.
 
-1.  **Create a Gatsby site.**
+Due to the way github pages docs the personal page must be deployed from the master branch which causes issues when trying to store the source for gatsby and building the project.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+To fix this the master branch holds the generated static artifacts for the website that is generated from gatsby. The actual source is in the branch `master-source`.
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+## Development
 
-2.  **Start developing.**
+To work on this repo and make adjustments branch from `master-source` and develop there.
+
+**Start developing.**
 
     Navigate into your new site’s directory and start it up.
 
@@ -27,22 +20,16 @@
     npm run develop
     ```
 
-3.  **Open the code and start customizing!**
+**Open the code and start customizing!**
 
     Your site is now running at http://localhost:8000!
 
     Edit `src/pages/index.js` to see your site update in real-time!
 
-4.  **Learn more**
+# Deployment
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+Once development is complete merge into `master-source` and then run:
+```
+npm run develop
+```
+which will build the artifacts and deploy them to the master branch where the site will be hosted from. 
