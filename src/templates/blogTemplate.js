@@ -5,13 +5,16 @@ import styled from "styled-components"
 // import SEO from "../utils/SEO";
 import RehypeReact from "rehype-react"
 import "katex/dist/katex.min.css"
+import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader';
+
+deckDeckGoHighlightElement();
 
 const Article = styled.article`
-  width: 540px;
+  width: 600px;
   margin: 5% auto;
   word-wrap: break-word;
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 600px) {
     position: relative;
     font-weight: 400;
     width: 100%;
@@ -30,6 +33,14 @@ const ArticleSubtitle = styled.h2`
   margin-top: 50px;
   margin-bottom: 30px;
 `
+
+const ArticleH3 = styled.h3`
+  font-weight: 300;
+  font-size: 1.2rem;
+  margin-top: 50px;
+  margin-bottom: 30px;
+`
+
 
 const ArticleDate = styled.h2`
   font-weight: 300;
@@ -78,6 +89,7 @@ const renderAst = new RehypeReact({
   components: {
     h1: ArticleTitle,
     h2: ArticleSubtitle,
+    h3: ArticleH3,
     p: ArticleText,
     li: ArticleListElement,
     ul: ArticleUnorderedList,
