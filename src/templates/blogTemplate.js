@@ -4,12 +4,14 @@ import Layout from "../components/layout/layout";
 import styled from "styled-components"
 // import SEO from "../utils/SEO";
 import RehypeReact from "rehype-react"
+import "katex/dist/katex.min.css"
 
 const Article = styled.article`
   width: 540px;
   margin: 5% auto;
+  word-wrap: break-word;
 
-  @media screen and (max-height: 700px) {
+  @media screen and (max-width: 700px) {
     position: relative;
     font-weight: 400;
     width: 100%;
@@ -18,46 +20,69 @@ const Article = styled.article`
 
 const ArticleTitle = styled.h1`
   font-weight: 200;
-  font-size: 1.75rem;
-  color: rgb(83, 83, 88);
+  font-size: 2rem;
   margin-bottom: 1rem;
 `
 
+const ArticleSubtitle = styled.h2`
+  font-weight: 200;
+  font-size: 1.5rem;
+  margin-top: 50px;
+  margin-bottom: 30px;
+`
+
 const ArticleDate = styled.h2`
-  font-weight: 400;
-  font-size: 0.9rem;
-  color: rgb(83, 83, 88);
-  margin-bottom: 2.5rem;
+  font-weight: 300;
+  font-size: 1rem;
+  color: rgb(170, 170, 170);
+  margin-bottom: 75px;
 `
 
 const ArticleText = styled.p`
-  font-weight: 200;
-  font-size: 1rem;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-  color: rgb(83, 83, 88);
+  font-size: 14px;
+
+  @media screen and (max-width: 700px) {
+    font-size: 1rem;
+  }
 `
 
 const ArticleListElement = styled.li`
-  font-weight: 200;
-  font-size: 1rem;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-  color: rgb(83, 83, 88);
+  font-size: 14px;
+  font-weight: 200;
+
+  @media screen and (max-width: 700px) {
+    font-size: 1rem;
+  }
 `
 
-const ArticleLink = styled.a`
-  color: #68A7A2;
-  border-color: #68A7A2;
+const ArticleUnorderedList = styled.ul`
+  margin: 0;
+  list-style-position: inside;
+`
+
+const ArticleOrderedList = styled.ol`
+  margin: 0;
+  list-style-position: inside;
+`
+
+const ArticleBlockquote = styled.blockquote`
+  padding-left: 30px;
 `
 
 const renderAst = new RehypeReact({
   createElement: React.createElement,
   components: {
     h1: ArticleTitle,
+    h2: ArticleSubtitle,
     p: ArticleText,
     li: ArticleListElement,
-    a: ArticleLink,
+    ul: ArticleUnorderedList,
+    ol: ArticleOrderedList,
+    blockquote: ArticleBlockquote,
   },
 }).Compiler;
 

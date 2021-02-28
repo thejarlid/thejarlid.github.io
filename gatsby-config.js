@@ -45,8 +45,34 @@ module.exports = {
       },
       __key: "markdown",
     },
-    `gatsby-transformer-yaml`,
-    `gatsby-transformer-remark`,
+    "gatsby-transformer-yaml",
     "rehype-react",
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 800,
+            },
+          },
+          {
+            resolve: `gatsby-remark-image-attributes`,
+            options: {
+              styleAttributes: true,
+              dataAttributes: false
+            },
+          },
+          {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
+              strict: `ignore`
+            }
+          },
+        ],
+      },
+    },
   ],
 };

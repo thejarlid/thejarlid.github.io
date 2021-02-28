@@ -4,10 +4,7 @@ date: "2020-04-15"
 title: "A Love Letter To My Favourite Show - Silicon Valley"
 ---
 
-# Silicon Valley
-
-![](https://paper-attachments.dropbox.com/s_C94C622A04036BB70FD43603D0AF62E574A8EC0F69887B1CDD2EC200AC82DD0F_1587413518190_wallpaper.jpg)
-
+![](https://paper-attachments.dropbox.com/s_C94C622A04036BB70FD43603D0AF62E574A8EC0F69887B1CDD2EC200AC82DD0F_1587413518190_wallpaper.jpg#display:block;position=relative;width=100%;)
 
 I’ve often had conversations with my friends about shows we’ve grown up with. Shows that for years we’ve dedicated evenings to binging, rewatching, and humming along to the nostalgic theme songs. For myself, The Office is gravitational as if it yearns to be played and sat through either for chuckles or mindless passiveness. It’s a show for all seasons and moods, I’ll admit to even having watched it while doing homework to create an ambience of having other people around. I’ve probably watched it completely through about 9 times, but while I’ve grown up with the show, I’ve not necessarily grown with the show. It’s a nuance that I came to realize while watching the final season of Silicon Valley; it's the only show for which I can parallel my personal growth alongside the show’s story arc. With the purpose of satire being to hold up a mirror on its subject, Silicon Valley, for the past 6 years, has provided a humorous and often brutally honest reflection on myself and the evolution of the tech industry since the first episode aired. 
 
@@ -27,7 +24,7 @@ Much like the topics in the show throughout the later seasons, the stakes became
 
 
 
-![](https://nationalpostcom.files.wordpress.com/2017/11/silicon-valley-1.png?w=780)
+![](https://images-na.ssl-images-amazon.com/images/G/01/digital/video/hero/TVSeries/SiliconValley_314237900_PMRS1002560-SB._V324154090_SX1080_.jpg#width=100%)
 
 
 

@@ -4,8 +4,6 @@ date: "2021-02-15"
 title: "Meraki is on the App Store"
 ---
 
-# Meraki is on the App Store!
-
 This week I released Meraki, the first app listed under my own name 🎉 . It's a versatile yet incredibly simple productivity tool that aims to help users focus better and be more mindful about approaching their work. 
 
 Another todo list app? Do we really need another one in such a saturated space? I guess it wouldn't come as a surprise where I stand on this having just released one. 
@@ -15,6 +13,8 @@ I built Meraki as the todo list I wanted to use, having created a very basic ver
 I could have used any of the thousands of list apps on the store and I did for some time switching between different apps trying to find the right fit but for various reasons I couldn't find the one that worked for me. Out of the ones I tried some apps were quite simply bad and buggy they may have fit the minimalist style I was looking for but with more attention on style without much in the way of function. Others were overly complex with an abundance of options and configurations to tweak making adding a simple todo a task all in itself. There were also incredible apps like Todoist and Notion which were the gold standard for power-user's. I use Notion still for all my notes, documents, and planning its design is gorgeous, but for casual tasks it felt overkill. Todoist on the other hand had tasks that people could tweak and tailor to their exact needs, which required a time investment; I also wasn't the biggest fan of the design, while using it I found that my tasks would get lost in my lists. 
 
 Meraki tries to meet in the middle, with the quality to be in the same league as Todoist and Notion, but targeting the casual user that want to be productive without much overhead. 
+
+![./Meraki_is_on_the_App_Store/meraki_screenshot2.jpg](./Meraki_is_on_the_App_Store/meraki_screenshot2.jpg)
 
 ## Simple and Fast
 
@@ -31,9 +31,9 @@ Adding tasks with the inbox is also built around this core principle, when openi
 ## Beautiful and Minimalist
 
 > "Meraki is beautiful"
-
+>
 > "One of the best on the App Store. Wonderful UX great minimalism, very simple"
-
+> 
 > "I'll switch over to Meraki for the design factor alone"
 
 This is some of the initial feedback I've gotten from users and testers and it makes me so happy. Part of my criteria when looking looking for a todo list app was something aesthetically pleasing and inviting. Todo lists should feel good to use, you don't want to open a task to see the work you have to do and feel discouraged, repulsed, or overwhelmed. The design and interaction was not an afterthought for Meraki it was one of the core driving forces behind the app.
@@ -42,15 +42,13 @@ From the opening animation that aims to relax the use as they enter the app to t
 
 Firstly, the inspiration. Interior decoration and physical space play an important part in my productivity and getting me in a mindset where I'm relaxed and excited to get to work. I love working in [new places that create a productive ambiance](https://thriveglobal.com/stories/the-science-behind-coffee-shop-productivity/); its an interesting phenomenon called [the 'coffee shop effect'](https://blog.trello.com/coffee-shop-effect-boosts-productivity). With COVID-19 especially many of us are stuck at home in the same place feeling trapped unable be where somewhere we can do our best work with passion. Meraki's design brings user's productive spaces into the digital world so its with them at all times inspiring and assisting them whenever they need. I aimed to make it a breath of fresh air. Below are the moodboards I created for Meraki and some final photos of the app. 
 
-![Meraki%20is%20on%20the%20App%20Store!%2042a2a16062ec4529a0140af68a5a6fdb/IMG_5940.jpg](Meraki%20is%20on%20the%20App%20Store!%2042a2a16062ec4529a0140af68a5a6fdb/IMG_5940.jpg)
+![./Meraki_is_on_the_App_Store/meraki_moodboard1.png](./Meraki_is_on_the_App_Store/meraki_moodboard1.png)
 
-![Meraki%20is%20on%20the%20App%20Store!%2042a2a16062ec4529a0140af68a5a6fdb/9.jpg](Meraki%20is%20on%20the%20App%20Store!%2042a2a16062ec4529a0140af68a5a6fdb/9.jpg)
+![./Meraki_is_on_the_App_Store/meraki_moodboard2.png](./Meraki_is_on_the_App_Store/meraki_moodboard2.jpg)
 
-![Meraki%20is%20on%20the%20App%20Store!%2042a2a16062ec4529a0140af68a5a6fdb/IMG_5943.png](Meraki%20is%20on%20the%20App%20Store!%2042a2a16062ec4529a0140af68a5a6fdb/IMG_5943.png)
+![./Meraki_is_on_the_App_Store/meraki_screenshot.jpg](./Meraki_is_on_the_App_Store/meraki_screenshot.jpg)
 
 In addition to the colour two more stand out features for me are the options tray and page control navigation. The page control is almost like a fidget tool where I'm compelled to open the app and scroll through my categories because it feels good, but in the process I'm reminded of tasks that I have added in other categories I may not open often and this leads to less stale tasks. The options tray is also highly dynamic changing with the user's actions another application of the principle of showing details when necessary. 
-
-![Meraki%20is%20on%20the%20App%20Store!%2042a2a16062ec4529a0140af68a5a6fdb/ezgif-2-3de3c6770425.gif](Meraki%20is%20on%20the%20App%20Store!%2042a2a16062ec4529a0140af68a5a6fdb/ezgif-2-3de3c6770425.gif)
 
 ## Future
 

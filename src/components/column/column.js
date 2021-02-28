@@ -7,9 +7,9 @@ const ColumnContent = styled.div`
   padding: 0px;
   padding-top: 72px;
   padding-bottom: 72px;
-  width: 540px;
+  width: 600px;
 
-  @media screen and (max-width: 540px) {
+  @media screen and (max-width: 600px) {
     width: 100%;
   }
 `
