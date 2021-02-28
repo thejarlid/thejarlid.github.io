@@ -1,0 +1,100 @@
+/*
+  Navigation bar
+*/
+.nav{
+  font-family: 'Open Sans', "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  color: #606060;
+  z-index: 55;
+  height: 55px;
+}
+
+.nav li, .footer li{
+  list-style-type: none;
+  list-style-position: inside;
+  display: inline-block;
+}
+
+.links a{
+  font-size: 0.7em;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Open Sans';
+  letter-spacing: 2px;
+  line-height: 20.899999618530273px;
+  list-style-type: disc;
+  padding-bottom: 0px;
+  padding-left: 11px;
+  padding-right: 11px;
+  padding-top: 15px;
+  text-align: left;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #606060;
+}
+
+.nav a:hover{
+  color: #77c4d3;
+  border-color: #77c4d3;
+}
+
+.nav a.current:hover{
+  color: #77c4d3;
+  border-bottom: 2px solid #77c4d3;
+}
+
+.nav a.current{
+  border-bottom: 2px solid #77c4d3;
+}
+
+
+/*
+  Footer
+*/
+.footer{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+}
+
+.footerWrapper{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.snIcon{
+  height: 30px;
+  width: 30px;
+  margin-left: 20px;
+}
+
+#socialNetworks{
+  height: 30px;
+  padding: 0;
+}
+
+
+/*
+  Mobile screen adjustment
+*/
+@media screen and (max-width: 600px) {
+  .nav  {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1em;
+    text-align: center;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+
+  .nav ul {
+    padding: 0;
+  }
+}

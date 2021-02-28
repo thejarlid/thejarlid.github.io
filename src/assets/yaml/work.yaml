@@ -1,0 +1,42 @@
+- name: "Meraki"
+  date: "2020 - Current"
+  link: "https://merakiapp.co"
+  imgSrc: "thumbnail_meraki.png"
+  description: "My quarantine side-project when covid began was to productize the todo list I had built for myself during college. I designed, implmented, and released Meraki which is a simple and minimalist todo list that aims to inspire a mindful and relaxed approach to user's tasks. Developed for iOS first, following the release I'm working to make this a cross platform experience."
+
+- name: "Microsoft HoloLens"
+  date: "2019 - Current"
+  link: "https://www.microsoft.com/en-us/hololens"
+  imgSrc: "thumbnail_hololens.png"
+  description: "I'm currently a software engineer on the HoloLens Systems, sensors, and firmware team at Microsoft. I've had the pleasure to contribute to HoloLens 2 and the IVAS project. My work is primarily on sensor integration, drivers, and runtime for the HPU which is a custom ASIC for the device." 
+
+- name: "L1 Auto Directed Video Stabilization"
+  date: "2020"
+  link: "https://github.com/thejarlid/VideoStabilizationPy"
+  imgSrc: "thumbnail_videoStabilization.png"
+  description: "Following my attempt at developing a rudimentary video stabilizer for my Computer Vision course's final project I wanted to explore industry approaches. Looking into the topic I found a research paper by Google titled Auto Directed Video Stabilization with Robust L1 Optimal Camera Paths. This is my implementation of methods presented in the paper. To read more about this I have also written a blog post on it."
+
+- name: "Panorama Stitching + Image Processing Library"
+  date: "2019"
+  link: "https://github.com/thejarlid/DDImageLib"
+  imgSrc: "thumbnail_imglib.png"
+  description: "A basic Image Library and Video Stabilization Tool in C++ containing low level image processing pipelines for applying filters, Harris corner detection, panorama stitching, and optical flow. Includes a rough attempt at video stabilization for the course's final. The project was built up incremently through the assignments for UW CSE 455 - Computer Vision."
+
+- name: "xkVisor"
+  date: "2018"
+  link: "https://s3-us-west-2.amazonaws.com/www-cse-public/ugrad/thesis/ShibinXu.pdf"
+  imgSrc: "thumbnail_xkVISOR.png"
+  description: "After taking the operating systems course at the University of Washington, professor Tom Anderson took on some students to extend the operating system we built into a lightweight hypervisor that attempts to give more control and flexibility at the operating system level to better serve the purposes of applications running on them." 
+
+- name: "xv6 - Unix Operating System"
+  date: "2018"
+  link: "https://github.com/Dilraj-Singh-Devgun/xv6"
+  imgSrc: "thumbnail_xv6.png"
+  description: "This is my implementation of the xv6 POSIX-like kernel from CSE 451 OS - Fall 2017. xv6 is a modern reimplementation of Sixth Edition Unix. This was the first time this project (titled xk in the course material). This project sparked my love for operating systems and working at the systems level. I later went on to TA the course and build up support and infrastructure for this codebase."  
+
+- name: "Citrus - Motivational Task Manager"
+  date: "2015"
+  link: "https://appadvice.com/appnn/2016/01/be-more-productive-with-citrus-motivational-task-manager"
+  imgSrc: "thumbnail_citrus.png"
+  description: "This is the first large scale project I ever undertook. Having never programmed before I wanted to build an iOS app so with my best friend in high school we both create Citrus which went on to eventually become featured on the Apple App Store as Best New App in Germany, Sweden, and Austria. This was my first exposure to iOS development and sparked my love for the development ecosystem." 
+    
