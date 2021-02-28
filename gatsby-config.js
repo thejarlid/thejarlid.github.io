@@ -76,7 +76,6 @@ module.exports = {
             options: {
               terminal: 'carbon',
               theme: 'one-dark',
-              lineNumbers: true,
             }
           },
         ],
