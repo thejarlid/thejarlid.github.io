@@ -105,7 +105,7 @@ export default function DocumentTemplate({data}) {
       {/* <SEO title={post.frontmatter.title}/> */}
       <Article>
         <ArticleTitle>{post.frontmatter.title}</ArticleTitle>
-        <ArticleDate>Effective {post.frontmatter.date}</ArticleDate>
+        <ArticleDate>{post.frontmatter.date}</ArticleDate>
         <ArticleText>{renderAst(post.htmlAst)}</ArticleText>
       </Article>
     </Layout>
