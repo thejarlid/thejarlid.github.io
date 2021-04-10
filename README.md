@@ -30,6 +30,6 @@ To work on this repo and make adjustments branch from `master-source` and develo
 
 Once development is complete merge into `master-source` and then run:
 ```
-npm run develop
+npm run deploy
 ```
 which will build the artifacts and deploy them to the master branch where the site will be hosted from. 
