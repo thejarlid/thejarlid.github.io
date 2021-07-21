@@ -10,10 +10,10 @@ const AboutPage = () => {
       <Column>
         <ColumnHeader title="about" subtitle=""  />
         <p style={{marginBottom:"1.5rem"}}>
-        I'm a caffeine based lifeform currently working as a software engineer at Microsoft on the HoloLens Systems, Firmware, and Drivers team. Outside of my job I love to develop iOS apps that have a focus on sparking wonder and excitment with their use and design. Recently I've had an interest in learning more about computer vision and machine learning theory and practice specifically in their applicaiton towards precision medicine. In general I love learning (and teaching) new things and I use code as my medium to express my creativity. 
+        I'm a caffeine based lifeform currently working as a software engineer at Facebook Reality Labs on the Computer Vision and ML firmware team. I previously worked at Microsoft on the HoloLens Systems, Firmware, and Drivers team. Outside of my job I love to develop iOS apps that have a focus on sparking wonder and excitment with their use and design. Recently I've had an interest in learning more about computer vision and machine learning theory and practice specifically in their applicaiton towards precision medicine. In general I love learning (and teaching) new things and I use code as my medium to express my creativity. 
         </p>
         <p>
-        In my free time I love playing soccer, tennis, boxing, reading, cooking, and enjoying a nice cup of coffee somewhere.
+        In my free time I love playing soccer, tennis, boxing, reading, and cooking. You can find me enjoying a nice cup of coffee somewhere or seeking out warm weather and a beach to go for a surf.
         </p>
       </Column>
     </Layout>

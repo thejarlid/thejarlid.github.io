@@ -89,15 +89,18 @@ const IndexPage = () => {
           <Typed strings={[
               "In a nutshell I build cool things.", 
               "My passion in CS are in low level systems and medical applications of ML, CV, and AI.",
-              "I'm a software engineer on the HoloLens team @ Microsoft.", 
+              "I'm a software engineer on the Computer Vision and ML firmware team @ Facebook Reality Labs.",
+              "Previously a software engineer on the HoloLens team @ Microsoft.", 
               "I develop iOS apps in my free time.",
-              "I studied Computer Science @ the University of Washington.",
+              "I'm really interested in the intersection of computer science and precision medicine.",
               "I'm a first generation college graduate.",
-              "I love soccer, tennis, and boxing.",
+              "I love soccer, tennis, boxing, and surfing.",
               "My favourite book is Notes From the Underground.",
               "My favourite albums are Channel Orange, Not Waving But Drowning, and My Beautiful Dark Twisted Fantasy.",
               "I grew up in England and currently live in Seattle.",
-              "I can solve the rubix cube in under 2 minutes."]}
+              "I can solve the rubix cube in under 2 minutes.",
+              "I studied Computer Science @ the University of Washington."
+            ]}
               typeSpeed={30}
               backSpeed={20}
               backDelay={1000}
